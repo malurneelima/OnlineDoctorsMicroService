@@ -33,8 +33,7 @@ public class DoctorController {
     @GetMapping("/{id}")
     public ResponseEntity<Doctors> getDoctorById(@PathVariable Long id) {
         Doctors doctor = doctorService.getDoctorById(id);
-        return doctor != null ? new ResponseEntity<>(doctor, HttpStatus.OK) 
-                              : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return  new ResponseEntity<>(doctor, HttpStatus.OK);
     }
 
     @GetMapping
@@ -46,15 +45,13 @@ public class DoctorController {
     @PutMapping("/{id}")
     public ResponseEntity<Doctors> updateDoctor(@PathVariable Long id, @RequestBody Doctors doctor) {
         Doctors updatedDoctor = doctorService.updateDoctor(id, doctor);
-        return updatedDoctor != null ? new ResponseEntity<>(updatedDoctor, HttpStatus.OK) 
-                                      : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(updatedDoctor, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteDoctor(@PathVariable Long id) {
-        boolean isDeleted = doctorService.deleteDoctor(id);
-        return isDeleted ? new ResponseEntity<>(HttpStatus.NO_CONTENT) 
-                         : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<String> deleteDoctor(@PathVariable Long id) {
+    	doctorService.deleteDoctor(id);
+        return new ResponseEntity<>("Doctor deleted successfully",HttpStatus.OK);
     }
     
     
